@@ -15,24 +15,24 @@ foreach ($func in $raw.ToCharArray()) {
 	}
 
 	If ($func -eq '<') {
-        $code = $code + '$pointer--; If ($pointer -lt 0) { throw "Pointer outside of limit" }; '
-    }
+		$code = $code + '$pointer--; If ($pointer -lt 0) { throw "Pointer outside of limit" }; '
+	}
 
-    If ($func -eq '[') {
-    	$code = $code + 'while ($memory[$pointer] -ne 0) { '
-    }
+	If ($func -eq '[') {
+		$code = $code + 'while ($memory[$pointer] -ne 0) { '
+	}
 
-    If ($func -eq ']') {
-    	$code = $code + '}; '
-    }
+	If ($func -eq ']') {
+		$code = $code + '}; '
+	}
 
-    If ($func -eq '.') {
-    	$code = $code + '$out = [char]$memory[$pointer]; echo $out; '
-    }
+	If ($func -eq '.') {
+		$code = $code + '$out = [char]$memory[$pointer]; echo $out; '
+	}
 
-    If ($func -eq ',') {
-    	$code = $code + '$in = Read-Host; $in = [int[]][char[]]$in; $memory[$pointer] = $in[0]; '
-    }
+	If ($func -eq ',') {
+		$code = $code + '$in = Read-Host; $in = [int[]][char[]]$in; $memory[$pointer] = $in[0]; '
+	}
 }
 
 Invoke-Expression -Command $code
